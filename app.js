@@ -17,10 +17,17 @@ const sendToSlackChannel = async (blocks) => {
 };
 
 const main = async () => {
-  const menu = await getMenu();
-  // result looks like this:
+  let menu;
+  try {
+    menu = await getMenu();
+  } catch (e) {
+    console.error("Something went wrong while fetching menu from Smaus: \n", e);
+    return;
+  }
+  // menu looks like this:
   /* 
-[
+
+  [
     [
         'Svinekam\nmed potetpure og broccoli.',
         'Vegetar: Potetpure med broccolimedaljong.',
@@ -31,6 +38,7 @@ const main = async () => {
     ]
     ...
   ], 
+
   */
   const todaysWeekdayIndex = new Date().getDay() - 1;
 

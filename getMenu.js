@@ -2,9 +2,7 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
 const getMenu = async () => {
-  const browser = await puppeteer.launch({
-    executablePath: "/usr/bin/google-chrome",
-  });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://tullin.munu.shop/meny");
   const html = await page.content();

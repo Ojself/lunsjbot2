@@ -1,5 +1,5 @@
 const foodEmojis = require("./emojis/food_emojis.json");
-const categoryEmojis = require("./emojis/category_emojis.json");
+const variousFoodEmojis = require("./emojis/variousFoodEmojis.json");
 const foodEmojiKeys = Object.keys(foodEmojis);
 
 const getRandomElementFromArray = (array) =>
@@ -10,7 +10,9 @@ const getEmojis = (dish, maxAmountEmojis = 3) => {
   const splittedDish = dish.split(" ");
 
   splittedDish.forEach((word) => {
-    const wordLow = word.toLowerCase().replace(/[^a-z|æøå|éèáà|äöë]/g, "");
+    const wordLow = word
+      .toLowerCase()
+      .replace(/[^a-z|æøå|éèáà|äöë]/g, ""); /* TODO, this might be wrong */
     if (foodEmojiKeys.includes(wordLow) && emojis.size < maxAmountEmojis) {
       emojis.add(
         Array.isArray(foodEmojis[wordLow])
@@ -22,8 +24,7 @@ const getEmojis = (dish, maxAmountEmojis = 3) => {
 
   // Adds general emojis if specific ones are not found
   while (emojis.size < maxAmountEmojis) {
-    const category = dish?.category?.name ? dish.category.name : "variousFood";
-    emojis.add(getRandomElementFromArray(categoryEmojis[category]));
+    emojis.add(getRandomElementFromArray(variousFoodEmojis));
   }
   return Array.from(emojis).join(" ");
 };
@@ -61,7 +62,7 @@ const generateSlackBlocks = (menu) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: "Lunsjbot is experimental and <https://github.com/Ojself/lunsjbot|open source>",
+      text: "Lunsjbot2.0 is experimental and <https://github.com/Ojself/lunsjbot2|open source>",
     },
   };
 

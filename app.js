@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Axios = require("axios");
+const nodeCron = require("node-cron");
 
 const { getMenu } = require("./getMenu");
 const { generateSlackBlocks } = require("./generateSlackBlocks");
@@ -25,7 +26,7 @@ const main = async () => {
     return;
   }
   // menu looks like this:
-  /* 
+  /*
 
   [
     [
@@ -37,7 +38,7 @@ const main = async () => {
       ...
     ]
     ...
-  ], 
+  ],
 
   */
   const todaysWeekdayIndex = new Date().getDay() - 1;
@@ -56,4 +57,4 @@ const main = async () => {
   }
 };
 
-main();
+const job = nodeCron.schedule("0 9 * * 1-5", main);

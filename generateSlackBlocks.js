@@ -47,24 +47,20 @@ const generateSlackBlocks = (menu) => {
   };
 
   const divider = { type: "divider" };
-  const urls = [
-    "https://i.imgur.com/HpNvwTN.png",
-    "https://i.imgur.com/MU6u6LO.png",
-    "https://i.imgur.com/mScb0Xr.png",
-  ];
+
   const menuOverview = menu.map((dish, i) => {
-    const accessory = {
+    /* const accessory = {
       type: "image",
       image_url: urls[i],
       alt_text: dish,
-    };
+    }; */
     const block = {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${dish}*\n${getEmojis(dish)}`,
+        text: `*${dish}*\n${getEmojis(dish)} `,
       },
-      accessory,
+      /* accessory, */
     };
     return block;
   });
@@ -73,7 +69,7 @@ const generateSlackBlocks = (menu) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: "Lunsjbot2.0 is experimental and <https://github.com/Ojself/lunsjbot2|open source> \n These images are accurate and should not be questioned",
+      text: "Lunsjbot2.0 is experimental and <https://github.com/Ojself/lunsjbot2|open source> \n AI generated images coming soon to a slack channel near you!",
     },
   };
 

@@ -57,4 +57,6 @@ const main = async () => {
   }
 };
 
-const job = nodeCron.schedule("0 9 * * 1-5", main);
+const job = nodeCron.schedule("0 9 * * 1-5", main, {
+   timezone: "Europe/Oslo"
+});

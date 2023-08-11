@@ -13,18 +13,26 @@ const getMenu = async () => {
   const html = await page.content();
   const $ = cheerio.load(html);
 
-  const menu = [];
 
-  $(".static-container ul").each((index, element) => {
-    const items = $(element)
-      .find("li")
-      .toArray()
-      .map((item) => $(item).text().replace(/\n/g, " ").trim());
-    menu.push(items);
-  });
+const daysOfWeek = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"];
+const textContent = [];
 
-  await browser.close();
-  return menu;
+$('div.grid-container p span').each((index, element) => {
+  const spanTexts = $(element).find('span').map((spanIndex, spanElement) => {
+    return $(spanElement).text().replace(/\n/g, " ").replace(new RegExp(daysOfWeek.join('|'), 'g'), '').trim();
+  }).get().filter((word) => word.length > 0);
+
+  if (spanTexts.length > 0 && spanTexts.some(str => str.includes("Vegetar"))) {
+    if (spanTexts.length == 1) {
+      textContent.push(spanTexts[0].split(/(?=Vegetar:|Suppe:)/).map(str => str.trim()))
+    } else {
+      textContent.push(spanTexts);
+    }
+  }
+});
+
+return textContent;
+
 };
 
 module.exports = { getMenu };

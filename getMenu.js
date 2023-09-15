@@ -1,6 +1,8 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
+const { askChatGpt } = require("./chatGpt");
+
 const getMenu = async () => {
 
   const browser = await puppeteer.launch({
@@ -13,18 +15,8 @@ const getMenu = async () => {
   const html = await page.content();
   const $ = cheerio.load(html);
 
-  const menu = [];
-
-  $(".static-container ul").each((index, element) => {
-    const items = $(element)
-      .find("li")
-      .toArray()
-      .map((item) => $(item).text().replace(/\n/g, " ").trim());
-    menu.push(items);
-  });
-
-  await browser.close();
-  return menu;
+  const result = await askChatGpt($('div.grid-container p span').text().replace(/\n/g, " ").trim())
+  return JSON.parse(result.data.choices[0].message.content)
 };
 
 module.exports = { getMenu };

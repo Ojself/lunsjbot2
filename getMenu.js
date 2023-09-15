@@ -15,7 +15,7 @@ const getMenu = async () => {
   const html = await page.content();
   const $ = cheerio.load(html);
 
-  const result = await askChatGpt($('div.grid-container p span').text().replace(/\n/g, " ").trim())
+  const result = await askChatGpt($('div.static-container').text().replace(/\n/g, " ").trim())
   return JSON.parse(result.data.choices[0].message.content)
 };
 

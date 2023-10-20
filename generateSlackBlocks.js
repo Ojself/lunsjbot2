@@ -69,7 +69,7 @@ const generateSlackBlocks = (menu) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: "Lunsjbot2.0 is experimental and <https://github.com/Ojself/lunsjbot2|open source> \n AI generated images coming soon to a slack channel near you!",
+      text: "Lunsjbot2.0 is experimental and <https://github.com/Ojself/lunsjbot2|open source> ",
     },
   };
 
